@@ -1,0 +1,35 @@
+3.3 (_builtin): entries=2025 lines(ok-status)=2853
+skipped lines (unusual/parse-error)=2
+
+[line-level vs real]
+ok	2133
+doc-no-optional?	377
+no-class	230
+no-real	44
+req-count	21
+name-mismatch	20
+kw-mismatch	12
+opt-count	12
+block-missing	2
+no-real:inherited	2
+
+[entry-level vs real]
+ok	1701
+no-class	155
+ok-split	109
+no-real	33
+doc-no-optional?	12
+name-mismatch	10
+no-real:inherited	2
+req-count	2
+opt-count	1
+
+[line-level vs rbs]
+ok	2351
+no-rbs	491
+rbs-unmatched-sig	11
+
+[entry-level vs rbs]
+ok	1666
+no-rbs	349
+rbs-unmatched-sig	10
