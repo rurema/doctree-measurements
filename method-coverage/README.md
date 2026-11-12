@@ -76,7 +76,9 @@ DOC_ON_ANCESTOR 等の除外分類を含む約 1 万行/版)はサイズの都�
   `generated`= cgi/html の各 DTD モジュールが要素名ごとに生成するメソッド(`doctype` は除く)、
   `generated(node)`= prism のノードクラス(`Prism::*Node`)、`generated(visitor)`= prism の Visitor・Compiler・Dispatcher・DSL・Translation 系、
   `internal`= rubygems の利用者向けクラス(`Gem`・`Gem::Specification`・`Gem::Version`・`Gem::Requirement`・`Gem::Dependency`・`Gem::Platform`・
-  `Gem::ConfigFile`・`Gem::Package`)と例外クラス以外。判定は `compare_mc.rb` の `policy_exclusion`。
+  `Gem::ConfigFile`・`Gem::Package`)と例外クラス以外、および irb の `IRB`・`IRB::Context`・`IRB::Inspector` と例外クラス以外の `IRB::` 配下
+  (2026-11-12 追加・rurema/doctree#3645。irb が標準添付だった 3.x の集計に効く。同梱の `result/` は 2026-10-10 の測定のままで、次の再測定から反映される)。
+  判定は `compare_mc.rb` の `policy_exclusion`。
   `result/` の TSV は 2026-10-03 の再測定からこの分類を反映している。`POLICY` の件数は `result/<版>/summary.txt` の shortage 行と、
   同梱していない `shortage.tsv` に出る。`summary-by-lib.tsv` の undoc 系の列と `matrix-shortage.tsv` には含まれない
 

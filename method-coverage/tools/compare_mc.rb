@@ -175,6 +175,7 @@ end
 # ---- 方針上の除外(doctree の docs/FrequentlyAskedQuestions.md「実 Ruby にあるメソッドはすべて載せるのですか?」・rurema/doctree#3566)
 # 不足側の UNDOC 系に該当しても、方針として個別エントリを作らないものは category を POLICY(理由) にして集計対象から外す。
 POLICY_USER_FACING_GEM = %w[Gem Gem::Specification Gem::Version Gem::Requirement Gem::Dependency Gem::Platform Gem::ConfigFile Gem::Package].to_set
+POLICY_USER_FACING_IRB = %w[IRB IRB::Context IRB::Inspector].to_set
 POLICY_PRISM_GENERATED = /\APrism::(BasicVisitor|Visitor|Compiler|Dispatcher|DSL|InspectVisitor|DotVisitor|MutationCompiler|DesugarCompiler|RipperCompat|Translation::.*)\z/
 def policy_exclusion(lib, klass, name)
   case lib
@@ -188,6 +189,12 @@ def policy_exclusion(lib, klass, name)
   when %r{\Arubygems(/|\z)}
     # 利用者向け API(Gem の設定・検索系、gemspec 属性、Version/Requirement/Dependency/Platform)と例外クラス以外は内部
     return nil if POLICY_USER_FACING_GEM.include?(klass) || klass =~ /(Error|Exception)\z/
+    return "internal"
+  when %r{\Airb(/|\z)}
+    # .irbrc や拡張から使う API(IRB・IRB::Context・IRB::Inspector)と例外クラス以外の IRB:: 配下は内部(rurema/doctree#3645)。
+    # irb/xmp の XMP や Kernel・Binding への追加のような IRB:: の外のものは対象にしない
+    return nil unless klass =~ /\AIRB(::|\z)/
+    return nil if POLICY_USER_FACING_IRB.include?(klass) || klass =~ /(Error|Exception)\z/
     return "internal"
   end
   nil
